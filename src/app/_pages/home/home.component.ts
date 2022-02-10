@@ -16,6 +16,9 @@ export class HomeComponent implements OnInit {
     var s = document.createElement("script");
     s.src = "../../assets/js/gr-theme-mode-switcher.js";
     this.elementRef.nativeElement.appendChild(s);
+    var s1 = document.createElement("script");
+    s1.src = "../../assets/plugins/counter-up/jquery.counterup.min.js";
+    this.elementRef.nativeElement.appendChild(s1);
 
   }
 
