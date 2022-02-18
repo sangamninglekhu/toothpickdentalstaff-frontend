@@ -18,6 +18,10 @@ import { HeaderComponent } from './_components/header/header.component';
 import { FooterComponent } from './_components/footer/footer.component';
 import { JobopeningsComponent } from './_components/jobopenings/jobopenings.component';
 import { ForgetpasswordComponent } from './_components/forgetpassword/forgetpassword.component';
+import { BookingformComponent } from './_components/bookingform/bookingform.component';
+import { SignupformNurseComponent } from './_components/signupform-nurse/signupform-nurse.component';
+import { SignupformPracticeComponent } from './_components/signupform-practice/signupform-practice.component';
+import { CareerformComponent } from './_components/careerform/careerform.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,11 @@ import { ForgetpasswordComponent } from './_components/forgetpassword/forgetpass
     ForgetpasswordComponent,
     JobopeningsComponent,
     ResetpasswordComponent,
-    CareerComponent
+    CareerComponent,
+    BookingformComponent,
+    SignupformNurseComponent,
+    SignupformPracticeComponent,
+    CareerformComponent
   ],
   imports: [
     BrowserModule,

@@ -47,8 +47,8 @@
 
 .avatar1 {
   position:absolute;
-  left:5%;
-  top: 20%;
+  left:15%;
+  top: 70%;
 	width: 75px;
 	max-height: 75px;
 	/* box-sizing: border-box;
@@ -76,7 +76,7 @@
 .avatar3 {
   position:absolute;
   left:5%;
-  bottom: 15%;
+  top: 30%;
 	width: 75px;
 	max-height: 75px;
 	/* box-sizing: border-box;
@@ -102,7 +102,8 @@
 	animation: float 9s ease-in-out infinite;
 }
 
-.avatar1 img, .avatar2 img,.avatar3 img,.avatar4 img  { width: auto; max-height: 150px; }
+.avatar1 img, .avatar2 img,.avatar4 img  { width: auto; max-height: 80px; }
+.avatar3 img{width: auto; max-height: 100px; }
 .hero-img img { width: auto; max-height: 55px; }
 
 /* .content {
