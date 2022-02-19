@@ -10,6 +10,8 @@ import { SignupNurseComponent } from './_pages/signup-nurse/signup-nurse.compone
 import { SignupPracticeComponent } from './_pages/signup-practice/signup-practice.component';
 import { ResetpasswordComponent } from './_pages/resetpassword/resetpassword.component';
 import { CareerComponent } from './_pages/career/career.component';
+import { IsAuthenticatedGuard } from './_guards/is-authenticated.guard';
+import { HasRoleGuard } from './_guards/has-role.guard';
 
 const routes: Routes = [
   {
@@ -22,11 +24,20 @@ const routes: Routes = [
   },
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
+    canActivate: [IsAuthenticatedGuard, HasRoleGuard],
+    data: {
+      role: 'Admin'
+    }
   },
   {
     path: 'career',
-    component: CareerComponent
+    component: CareerComponent,
+    canActivate: [IsAuthenticatedGuard, HasRoleGuard],
+    data: {
+      role: 'Pirate'
+    }
+
   },
   {
     path: 'contact',

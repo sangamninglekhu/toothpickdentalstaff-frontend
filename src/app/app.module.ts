@@ -23,6 +23,10 @@ import { SignupformNurseComponent } from './_components/signupform-nurse/signupf
 import { SignupformPracticeComponent } from './_components/signupform-practice/signupform-practice.component';
 import { CareerformComponent } from './_components/careerform/careerform.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthInterceptorProvider } from './_interceptors/auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,9 +51,12 @@ import { CareerformComponent } from './_components/careerform/careerform.compone
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -497,7 +497,7 @@ body[data-theme='light'] .default-logo, body[data-theme='light'] .default-shape,
 
 .gr-check-input {
   padding-top: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .gr-check-input input:checked ~ .checkbox {
@@ -941,7 +941,7 @@ body[data-theme='light'] .default-logo, body[data-theme='light'] .default-shape,
 
 .main-menu {
   /* ----------------------
-  Custom toggle arrow 
+  Custom toggle arrow
 ------------------------*/
 }
 
