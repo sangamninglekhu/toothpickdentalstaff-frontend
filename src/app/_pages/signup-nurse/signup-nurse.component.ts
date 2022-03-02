@@ -77,7 +77,7 @@ export class SignupNurseComponent implements OnInit {
     console.log(this.signup.value);
 
     this.submitted = true;
-    this.signup.value.role = "2";
+    this.signup.value.role = 2;
     // stop here if form is invalid
     if (this.signup.invalid) {
       delete this.signup.value.confirmpassword;
@@ -89,8 +89,8 @@ export class SignupNurseComponent implements OnInit {
 
     this.registerService.register(this.signup.value).subscribe(
       (data) => {
+        console.log("success: ", data);
         this.jobSuccess = true;
-        console.log("success: ");
       },
       (error) => {
         this.jobSuccess = false;

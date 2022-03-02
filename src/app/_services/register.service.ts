@@ -12,7 +12,7 @@ export class RegisterService {
   ) { }
 
   register(signupform){
-    return this.http.post(`${baseUrl}register`, signupform);
+    return this.http.post(`${baseUrl}registerUser`, signupform);
   }
 
 }
