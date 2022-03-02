@@ -33,12 +33,17 @@ const routes: Routes = [
   {
     path: 'career',
     component: CareerComponent,
-    canActivate: [IsAuthenticatedGuard, HasRoleGuard],
-    data: {
-      role: 'Pirate'
-    }
 
   },
+  // {
+  //   path: 'career',
+  //   component: CareerComponent,
+  //   canActivate: [IsAuthenticatedGuard, HasRoleGuard],
+  //   data: {
+  //     role: 'Pirate'
+  //   }
+
+  // },
   {
     path: 'contact',
     component: ContactComponent

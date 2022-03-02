@@ -1,8 +1,6 @@
 import { Component, ElementRef, OnInit } from "@angular/core";
 import {
   FormGroup,
-  FormControl,
-  FormArray,
   FormBuilder,
   Validators,
 } from "@angular/forms";
@@ -15,6 +13,7 @@ import { AuthService } from "src/app/_services/auth.service";
   styleUrls: ["./signin.component.css"],
 })
 export class SigninComponent implements OnInit {
+
   // Initializing required variables
   loginForm: FormGroup;
   defaultState;
@@ -27,11 +26,11 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private elementRef: ElementRef,
     private authService: AuthService,
     public activatedRoute: ActivatedRoute,
     public router: Router
   ) {
+
     // Get the last values of the form
     const value = JSON.parse(localStorage.getItem("jobFormValue"));
     this.loginForm = this.fb.group({
