@@ -17,8 +17,8 @@ export class RegisterService {
     return this.http.post(`${baseUrl}registerUser`, signupform);
   }
 
-  getStaffs(): Observable<Staff>{
-    return this.http.get<Staff>(`${baseUrl}register`);
+  getStaffs(): Observable<any>{
+    return this.http.get<any>(`${baseUrl}register`);
   }
 
 }

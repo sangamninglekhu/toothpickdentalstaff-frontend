@@ -80,7 +80,7 @@ export class SignupNurseComponent implements OnInit {
     // this.staffs = this.registerService.getStaffs().subscribe;
     this.registerService.getStaffs().subscribe(
       data => {
-        this.staffs = data;
+        this.staffs = data.result;
         this.isLoaded= true;
         // this.signup.reset();
         // this.signup.patchValue({
