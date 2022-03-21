@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "src/app/_services/auth.service";
 import { RegisterService } from "src/app/_services";
 import { MustMatch } from 'src/app/_helpers/must-match.validator';
+import { Staff } from "src/app/_models/staff";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-signup-nurse",
@@ -20,6 +22,10 @@ export class SignupNurseComponent implements OnInit {
   submitted: boolean = false;
   fileEmpty: boolean = true;
   checkbox: boolean = false;
+  loading: boolean = false;
+  staffs: Staff;
+  staffs2: any[];
+  isLoaded: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -48,6 +54,7 @@ export class SignupNurseComponent implements OnInit {
           Validators.maxLength(100),
         ],
       ],
+      staff_id: [(value && value.staff_id) || "", [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmpassword: ['', Validators.required],
       role: [(value && value.role) || ""],
@@ -69,11 +76,29 @@ export class SignupNurseComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // this.staffs = this.registerService.getStaffs().subscribe;
+    this.registerService.getStaffs().subscribe(
+      data => {
+        this.staffs = data;
+        this.isLoaded= true;
+        // this.signup.reset();
+        // this.signup.patchValue({
+        // });
+        // this.staffs2 = this.stafff;
+        console.log("success: ", this.staffs);
+      },
+      error => {
+        console.log("error: ",error.message,error);
+      });
+
+
+  }
+
+
 
   // Function to run after form submission
   onSubmit() {
-    console.log(this.signup.valid);
     console.log(this.signup.value);
 
     this.submitted = true;
@@ -81,11 +106,16 @@ export class SignupNurseComponent implements OnInit {
     // stop here if form is invalid
     if (this.signup.invalid) {
       delete this.signup.value.confirmpassword;
+      delete this.signup.value.staff_id;
       console.log(this.signup.value);
       console.log(this.signup);
       console.log("form failed");
       return;
     }
+    delete this.signup.value.confirmpassword;
+    delete this.signup.value.staff_id;
+
+    console.log('check: ',this.signup.value);
 
     this.registerService.register(this.signup.value).subscribe(
       (data) => {
@@ -108,6 +138,7 @@ export class SignupNurseComponent implements OnInit {
   clear() {
     this.submitted = false;
     this.signup.reset({
+      staff_id:""
     });
   }
 

@@ -37,7 +37,7 @@
             </div>
             <div class="login-form bg-white border rounded-10 px-8 py-8 shadow-1 mb-11">
               <form class="comment-one__form contact-form-validated"
-              [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              [formGroup]="loginForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
                 <div class="form-group">
                   <label for="email" class="gr-text-11 font-weight-bold text-blackish-blue">Email</label>
                   <input formControlName="username" class="form-control" type="text" placeholder="i.e. john@mail.com">

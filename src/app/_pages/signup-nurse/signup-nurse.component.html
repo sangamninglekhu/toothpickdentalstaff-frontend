@@ -21,7 +21,7 @@
     <div class="row justify-content-center">
       <div class="col-12">
         <div class="login-form bg-white border-gray-3 px-8 pt-8 pb-9 px-sm-11 py-sm-11 shadow-1 rounded-10">
-          <form [formGroup]="signup" (ngSubmit)="onSubmit()">
+          <form [formGroup]="signup" (ngSubmit)="onSubmit()" *ngIf="isLoaded">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group mb-7">
@@ -55,7 +55,19 @@
                 </div>
               </div>
               <div class="col-md-6">
+                <div class="form-group mb-7">
+                  <label for="staff_id" class="gr-text-11 font-weight-bold text-blackish-blue">Register as</label>
+                  <select formControlName="staff_id" class="form-control gr-text-11 border" name="staff_id">
+                    <option value="" disabled selected>Please select one?</option>
+                    <option *ngFor="let cat of staffs" value="{{cat.id}}">
+                      {{cat.type}}
+                      </option>
+                  </select>
+                  <div *ngIf="submitted && f.staff_id.errors" class="mb-2 text-danger">
+                    <div *ngIf="f.staff_id.errors.required">Staff type is required.</div>
+                  </div>
                 </div>
+              </div>
               <div class="col-md-6">
                 <div class="form-group mb-7">
                   <label for="phone" class="gr-text-11 font-weight-bold text-blackish-blue">Password</label>
@@ -70,18 +82,18 @@
               <div class="col-md-6">
                 <div class="form-group mb-7">
                   <label for="subject" class="gr-text-11 font-weight-bold text-blackish-blue">Confirm password</label>
-                  <input formControlName="confirmpassword" class="form-control gr-text-11 border" type="password" placeholder="sdfG@_gt">
+                  <input formControlName="confirmpassword" class="form-control gr-text-11 border" type="password"
+                    placeholder="sdfG@_gt">
                   <div *ngIf="submitted && f.confirmpassword.errors" class="mb-2 text-danger">
                     <div *ngIf="f.confirmpassword.errors.required">Password is required</div>
                     <div *ngIf="f.confirmpassword.errors.mustMatch">Passwords must match</div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <!-- <input formControlName="role" class="form-control gr-text-11 border" type="text"
-                placeholder="i.e. +44-07444831232" value="2" > -->
-
-              </div>
+              <!-- <div class="col-md-6">
+                <input formControlName="role" class="form-control gr-text-11 border" type="text"
+                placeholder="i.e. +44-07444831232" value="2" >
+              </div> -->
 
               <div class="col-xs-3">
                 <div class="form-group button-block mt-3 ">
@@ -91,10 +103,8 @@
               </div>
               <div class="col-xs-3">
                 <div class="form-group button-block mt-3 ">
-
-                <span (click)="clear()" class="form-btn btn btn-primary w-100">Reset Form</span>
-
-              </div>
+                  <span (click)="clear()" class="form-btn btn btn-primary w-100">Reset Form</span>
+                </div>
               </div>
 
             </div>

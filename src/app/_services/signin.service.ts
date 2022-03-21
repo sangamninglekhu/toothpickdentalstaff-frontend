@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseUrl } from 'src/environments/environment';
 
 @Injectable({
@@ -12,11 +12,24 @@ export class SigninService {
     private http: HttpClient
   ) { }
 
-  login(username: string, password: string): Observable<any>{
+  login(email: string, password: string): Observable<any>{
     const loginData: FormData = new FormData();
-    loginData.append('username', username);
+    loginData.append('email', email);
     loginData.append('password', password);
-    return this.http.get(`https://7b8bf3aa-34db-4c73-bb2b-a19b94e19f9f.mock.pstmn.io/login`);
+    console.log("logindata ",loginData);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'multipart/form-data'
+      })
+    };
+    return this.http.post(`https://admin.toothpickdentalstaff.com/api/userLogin`, {email,password},httpOptions);
   }
+
+  // signin(username: string, password: string): Observable<any>{
+  //   const loginData: FormData = new FormData();
+  //   loginData.append('username', username);
+  //   loginData.append('password', password);
+  //   return this.http.get(`${baseUrl}userLogin`);
+  // }
 
 }
