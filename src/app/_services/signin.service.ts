@@ -22,7 +22,7 @@ export class SigninService {
         'Content-Type':  'multipart/form-data'
       })
     };
-    return this.http.post(`https://admin.toothpickdentalstaff.com/api/userLogin`, {email,password},httpOptions);
+    return this.http.post(`https://admin.toothpickdentalstaff.com/api/userLogin`, loginData);
   }
 
   // signin(username: string, password: string): Observable<any>{
