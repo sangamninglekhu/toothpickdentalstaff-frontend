@@ -26,6 +26,8 @@ export class SignupNurseComponent implements OnInit {
   staffs: Staff;
   staffs2: any[];
   isLoaded: boolean = false;
+  afterSub: boolean = false;
+  emailExists: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -107,26 +109,39 @@ export class SignupNurseComponent implements OnInit {
     if (this.signup.invalid) {
       delete this.signup.value.confirmpassword;
       delete this.signup.value.staff_id;
-      console.log(this.signup.value);
-      console.log(this.signup);
-      console.log("form failed");
       return;
     }
     delete this.signup.value.confirmpassword;
     delete this.signup.value.staff_id;
 
     console.log('check: ',this.signup.value);
-
-    this.registerService.register(this.signup.value).subscribe(
+    this.registerService
+    .checkEmail(this.signup.value.email)
+    .subscribe(
       (data) => {
-        console.log("success: ", data);
-        this.jobSuccess = true;
+        this.emailExists = false;
+        console.log("success1: ", data);
+        this.registerService.register(this.signup.value).subscribe(
+          (data) => {
+            console.log("success2: ", data);
+            this.jobSuccess = true;
+            this.router.navigate(["/signin"]);
+
+          },
+          (error) => {
+            this.jobSuccess = false;
+            console.log("error2: ", error.message, error);
+          }
+        );
+
       },
       (error) => {
+        this.emailExists = true;
         this.jobSuccess = false;
-        console.log("error: ", error.message, error);
+        console.log("error1: ", error.message, error);
       }
     );
+
   }
 
   // Getter for easy access to form fields

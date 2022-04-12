@@ -23,7 +23,6 @@ export class IsAuthenticatedGuard implements CanActivate {
       tap(isLoggedIn => {
         if(!isLoggedIn) {
           this.router.navigate(['/signin']);
-
         }
       })
     );

@@ -5,7 +5,9 @@ import {
   Validators,
 } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { UserModel } from "src/app/_models/user.model";
 import { AuthService } from "src/app/_services/auth.service";
+import { SigninService } from "src/app/_services/signin.service";
 
 @Component({
   selector: "app-signin",
@@ -28,7 +30,8 @@ export class SigninComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     public activatedRoute: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    private signinService: SigninService
   ) {
 
     // Get the last values of the form
@@ -48,6 +51,17 @@ export class SigninComponent implements OnInit {
         JSON.stringify(this.loginForm.value)
       );
     });
+
+    // this.signinService.userDetail(localStorage.getItem("TDS_auth")).subscribe(
+    //   (data: UserModel) => {
+    //     console.log("signin user: ", data.role);
+    //     return data;
+    //   },
+    //   error => {
+    //     console.log("signin error: ",error.message,error);
+    //     return error;
+    //   });
+
   }
 
   ngOnInit() {}

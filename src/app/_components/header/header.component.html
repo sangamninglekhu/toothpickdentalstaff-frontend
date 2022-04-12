@@ -259,7 +259,7 @@
                 <a class="nav-link" href="contact" role="button" aria-expanded="false">Contact</a>
               </li>
 
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown" *ngIf="!(authService.isLoggedIn | async)">
                 <a class="nav-link dropdown-toggle gr-toggle-arrow" id="navbarDropdown02" href="#features" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sign Up <i class="icon icon-small-down"></i></a>
                 <ul class="gr-menu-dropdown dropdown-menu" aria-labelledby="navbarDropdown02">
                   <li class="drop-menu-item">
@@ -393,10 +393,10 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="signin" role="button" aria-expanded="false">Log In</a>
+                <a class="nav-link" *ngIf="!(authService.isLoggedIn | async)" href="signin" role="button" aria-expanded="false">Log In</a>
               </li>
               <li class="nav-item"  *ngIf="authService.isLoggedIn | async">
-                <a class="nav-link" href="signin" role="button" aria-expanded="false">Log Out</a>
+                <a class="nav-link" (click)="signOut()" role="button" aria-expanded="false">Log Out</a>
               </li>
             </ul>
           </div>

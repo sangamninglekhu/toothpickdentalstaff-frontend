@@ -21,4 +21,12 @@ export class RegisterService {
     return this.http.get<any>(`${baseUrl}register`);
   }
 
+  checkEmail(email: string){
+    const _email: FormData = new FormData();
+    _email.append('email', email);
+    return this.http.post(`${baseUrl}checkMail`, _email);
+  }
+
+
+
 }

@@ -27,7 +27,7 @@ const routes: Routes = [
     component: AboutComponent,
     canActivate: [IsAuthenticatedGuard, HasRoleGuard],
     data: {
-      role: 'Admin'
+      role: 1
     }
   },
   {
