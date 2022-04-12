@@ -80,7 +80,11 @@ export class SigninComponent implements OnInit {
     this.authService
       .login(this.loginForm.value.username, this.loginForm.value.password)
       .subscribe((data) => {
-        this.router.navigate(["/about"]);
+        window.location.href = data;
+        // this.router.navigate(["/about"]);
+      },
+      error => {
+        console.log("error: ",error.message,error);
       });
   }
 

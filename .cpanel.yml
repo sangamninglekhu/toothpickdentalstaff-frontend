@@ -1,0 +1,6 @@
+
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/bwpvd98kro18/test.toothpickdentalstaff.com/
+    - /bin/cp -R * $DEPLOYPATH
