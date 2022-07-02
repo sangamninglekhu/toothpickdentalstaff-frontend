@@ -45,6 +45,23 @@
   position: relative;
 } */
 
+.text-tds{
+  color:#2C97B3;
+}
+.avatar10 {
+  position:relative;
+  /* left:15%;
+  top: 70%;
+	width: 75px;
+	max-height: 75px; */
+	/* box-sizing: border-box;
+	border: 2px white solid;
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+	transform: translatey(0px); */
+	animation: float 8s cubic-bezier(0,0,1,1) infinite;
+}
 .avatar1 {
   position:absolute;
   left:15%;
