@@ -44,6 +44,9 @@
 /* .container, .avatar {
   position: relative;
 } */
+.bg-greenish{
+  background-color: #f0fbf5;
+}
 
 .bg-tds{
   background-color :#2C97B3;
