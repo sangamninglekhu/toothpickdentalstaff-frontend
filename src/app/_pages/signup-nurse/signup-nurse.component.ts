@@ -5,7 +5,6 @@ import { AuthService } from "src/app/_services/auth.service";
 import { RegisterService } from "src/app/_services";
 import { MustMatch } from 'src/app/_helpers/must-match.validator';
 import { Staff } from "src/app/_models/staff";
-import { Observable } from "rxjs";
 
 @Component({
   selector: "app-signup-nurse",
@@ -13,6 +12,7 @@ import { Observable } from "rxjs";
   styleUrls: ["./signup-nurse.component.css"],
 })
 export class SignupNurseComponent implements OnInit {
+
   // Initializing required variables
   signup: FormGroup;
   defaultState;
@@ -125,7 +125,7 @@ export class SignupNurseComponent implements OnInit {
           (data) => {
             console.log("success2: ", data);
             this.jobSuccess = true;
-            this.router.navigate(["/signin"]);
+            this.router.navigate(["/verifyemail"]);
 
           },
           (error) => {

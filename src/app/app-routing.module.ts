@@ -12,6 +12,8 @@ import { ResetpasswordComponent } from './_pages/resetpassword/resetpassword.com
 import { CareerComponent } from './_pages/career/career.component';
 import { IsAuthenticatedGuard } from './_guards/is-authenticated.guard';
 import { HasRoleGuard } from './_guards/has-role.guard';
+import { LogoutComponent } from './_pages/logout/logout.component';
+import { VerifyemailComponent } from './_pages/verifyemail/verifyemail.component';
 
 const routes: Routes = [
   {
@@ -53,6 +55,10 @@ const routes: Routes = [
     component: SigninComponent
   },
   {
+    path: 'verifyemail',
+    component: VerifyemailComponent
+  },
+  {
     path: 'signup',
     component: SignupPracticeComponent
   },
@@ -67,6 +73,10 @@ const routes: Routes = [
   {
     path: 'resetpassword',
     component: ResetpasswordComponent
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent
   },
   // {
   //   path: 'about',

@@ -25,7 +25,24 @@ export class SigninService {
         'Content-Type':  'multipart/form-data'
       })
     };
-    return this.http.post(`https://admin.toothpickdentalstaff.com/api/userLogin`, loginData);
+    return this.http.post(`${baseUrl}userLogin`, loginData,{withCredentials: true});
+  }
+
+  logout(){
+    return this.http.get(`${baseUrl}logout`);
+  }
+
+  verify(email: string, code: string): Observable<any>{
+    const verifyData: FormData = new FormData();
+    verifyData.append('email', email);
+    verifyData.append('code', code);
+    console.log("verifydata ",verifyData);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'multipart/form-data'
+      })
+    };
+    return this.http.post(`${baseUrl}verifyMail`, verifyData,{withCredentials: true});
   }
 
   userDetail(token: string): Observable<any>{

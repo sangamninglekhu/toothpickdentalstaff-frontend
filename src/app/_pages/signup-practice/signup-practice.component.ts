@@ -52,7 +52,7 @@ export class SignupPracticeComponent implements OnInit {
           Validators.maxLength(100),
         ],
       ],
-      staff_id: ['', [Validators.required]],
+      // staff_id: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmpassword: ['', Validators.required],
       role: [(value && value.role) || ""],
@@ -83,7 +83,7 @@ export class SignupPracticeComponent implements OnInit {
     console.log(this.signup.value);
 
     this.submitted = true;
-    this.signup.value.role = 2;
+    this.signup.value.role = 1;
     // stop here if form is invalid
     if (this.signup.invalid) {
       delete this.signup.value.confirmpassword;

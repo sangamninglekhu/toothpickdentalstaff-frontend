@@ -26,6 +26,8 @@ import { CareerformComponent } from './_components/careerform/careerform.compone
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorProvider } from './_interceptors/auth.interceptor';
+import { LogoutComponent } from './_pages/logout/logout.component';
+import { VerifyemailComponent } from './_pages/verifyemail/verifyemail.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { AuthInterceptorProvider } from './_interceptors/auth.interceptor';
     BookingformComponent,
     SignupformNurseComponent,
     SignupformPracticeComponent,
-    CareerformComponent
+    CareerformComponent,
+    LogoutComponent,
+    VerifyemailComponent
   ],
   imports: [
     BrowserModule,

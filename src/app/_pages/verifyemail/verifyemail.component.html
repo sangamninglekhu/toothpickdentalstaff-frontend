@@ -4,8 +4,8 @@
     <div class="row  justify-content-center mt-md-6 pt-24 pt-lg-29">
       <div class="col-xl-8 col-lg-9">
         <div class="px-md-12 text-center mb-11 mb-lg-14">
-          <h2 class="title gr-text-2 mb-9 mb-lg-12">Login</h2>
-          <p class="gr-text-8 mb-0">Sign in to get started.</p>
+          <h2 class="title gr-text-2 mb-9 mb-lg-12">Email Verification</h2>
+          <p class="gr-text-8 mb-0">Enter your email and code your received in your email to verify.</p>
         </div>
       </div>
     </div>
@@ -37,10 +37,10 @@
             </div>
             <div class="login-form bg-white border rounded-10 px-8 py-8 shadow-1 mb-11">
               <form class="comment-one__form contact-form-validated"
-              [formGroup]="loginForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+              [formGroup]="verify" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
                 <div class="form-group">
                   <label for="email" class="gr-text-11 font-weight-bold text-blackish-blue">Email</label>
-                  <input formControlName="username" class="form-control" type="text" placeholder="i.e. john@mail.com">
+                  <input formControlName="username" class="form-control" type="text" placeholder="eg. john@mail.com">
                   <div *ngIf="submitted && f.username.errors" class="mb-2 text-danger">
                     <div *ngIf="f.username.errors.required">Username is required.</div>
                   </div>
@@ -48,35 +48,17 @@
                 </div>
                 <div class="form-group forget-block">
                   <div class="d-flex justify-content-between">
-                    <label for="password" class="gr-text-11 font-weight-bold text-blackish-blue">Password</label>
-                    <a class="forget-link" href="resetpassword">Forgot Password?</a>
+                    <label for="code" class="gr-text-11 font-weight-bold text-blackish-blue">Code</label>
+                    <!-- <a class="forget-link" href="resetcode">Send Code Again</a> -->
                   </div>
-                  <input formControlName="password" id="password" class="form-control gr-text-11 border" type="password" placeholder="********">
-                  <div *ngIf="submitted && f.password.errors" class="mb-2 text-danger">
-                    <div *ngIf="f.password.errors.required">Password is required.</div>
+                  <input formControlName="code" id="code" class="form-control gr-text-11 border" type="code" placeholder="********">
+                  <div *ngIf="submitted && f.code.errors" class="mb-2 text-danger">
+                    <div *ngIf="f.code.errors.required">Code is required.</div>
                   </div>
 
                 </div>
-                <!-- <div class="form-check mb-7">
-              <input class="form-check-input" type="checkbox" value="" id="formCheck1">
-              <label class="gr-check-input gr-text-11 text-blackish-blue" for="formCheck1">
-                Remember me
-              </label>
-            </div> -->
-                <div class="form-group  mb-7">
-                  <label for="terms-check" class="gr-check-input mb-7 d-flex">
-                    <input class="d-none" type="checkbox" id="terms-check">
-                    <span class="checkbox mt-1 mr-2"></span>
-                    <p class="gr-text-11 text-blackish-blue mb-0">Remember me</p>
-                  </label>
-                </div>
-                <div class="form-group  mb-7" *ngIf="signinFail">
-                  <label for="terms-check" class="gr-check-input mb-7 d-flex">
-                    <p class="gr-text-11 text-danger mb-0">{{errorMsg}}</p>
-                  </label>
-                </div>
                 <div class="form-group button-block mb-2">
-                  <button class="form-btn btn btn-primary gr-hover-y w-100">Sign In</button>
+                  <button class="form-btn btn btn-primary gr-hover-y w-100">Verify</button>
                 </div>
               </form>
             </div>

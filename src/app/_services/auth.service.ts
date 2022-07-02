@@ -26,7 +26,9 @@ export class AuthService {
   }
 
   // check jwt token expiration before doing this
-  constructor(private signinService: SigninService, public router: Router) {
+  constructor(
+    private signinService: SigninService,
+    public router: Router) {
     this._isLoggedIn.next(!!this.token);
     this.user = this.userDetail;
   }
@@ -44,13 +46,26 @@ export class AuthService {
     );
   }
 
+  verify(username: string, code: string) {
+    console.log("form-data ", username, code);
+    return this.signinService.verify(username, code).pipe(
+      tap((response: any) => {
+        this._isLoggedIn.next(true);
+        localStorage.setItem(this.TOKEN_NAME, response.result.token);
+        this.userDetails(response.result.token).subscribe((data) => {
+          this.user = data;
+        });
+      })
+    );
+  }
+
   userDetails(token: string) {
     return this.signinService.userDetail(token).pipe(
       tap((response: any) => {
         // this._isLoggedIn.next(true);
         // localStorage.setItem(this.USER_NAME, response.role);
         this.user = response;
-        console.log("jwt ",response, this.user);
+        console.log("jwt ", response, this.user);
       })
     );
   }
@@ -60,6 +75,6 @@ export class AuthService {
     localStorage.removeItem(this.USER_NAME);
     console.log("signed out");
     this._isLoggedIn.next(false);
-
+    this.signinService.logout();
   }
 }

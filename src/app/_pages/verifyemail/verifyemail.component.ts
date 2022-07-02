@@ -9,20 +9,20 @@ import { UserModel } from "src/app/_models/user.model";
 import { AuthService } from "src/app/_services/auth.service";
 import { SigninService } from "src/app/_services/signin.service";
 
+
 @Component({
-  selector: "app-signin",
-  templateUrl: "./signin.component.html",
-  styleUrls: ["./signin.component.css"],
+  selector: "app-verifyemail",
+  templateUrl: "./verifyemail.component.html",
+  styleUrls: ["./verifyemail.component.css"],
 })
-export class SigninComponent implements OnInit {
+export class VerifyemailComponent implements OnInit {
 
   // Initializing required variables
-  loginForm: FormGroup;
+  verify: FormGroup;
   defaultState;
-  signinFail: boolean = false;
+  jobSuccess: boolean = false;
   fileToUpload: File | null = null;
   vacancyId: string;
-  errorMsg: string;
   submitted: boolean = false;
   fileEmpty: boolean = true;
   checkbox: boolean = false;
@@ -37,31 +37,21 @@ export class SigninComponent implements OnInit {
 
     // Get the last values of the form
     const value = JSON.parse(localStorage.getItem("jobFormValue"));
-    this.loginForm = this.fb.group({
+    this.verify = this.fb.group({
       username: [(value && value.username) || "", Validators.required],
-      password: [(value && value.password) || "", Validators.required],
+      code: [(value && value.code) || "", Validators.required],
     });
 
     // Get the last state of the contact form
-    this.defaultState = this.loginForm.value;
+    this.defaultState = this.verify.value;
 
     // Pre-fill the form with previous data. Handy on accidental page refresh or reloads.
-    this.loginForm.valueChanges.subscribe((value) => {
+    this.verify.valueChanges.subscribe((value) => {
       localStorage.setItem(
-        "TDS loginform",
-        JSON.stringify(this.loginForm.value)
+        "TDS verifyform",
+        JSON.stringify(this.verify.value)
       );
     });
-
-    // this.signinService.userDetail(localStorage.getItem("TDS_auth")).subscribe(
-    //   (data: UserModel) => {
-    //     console.log("signin user: ", data.role);
-    //     return data;
-    //   },
-    //   error => {
-    //     console.log("signin error: ",error.message,error);
-    //     return error;
-    //   });
 
   }
 
@@ -72,28 +62,26 @@ export class SigninComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.loginForm.invalid) {
+    if (this.verify.invalid) {
       console.log("form failed");
       return;
     }
     console.log("form success");
 
     this.authService
-      .login(this.loginForm.value.username, this.loginForm.value.password)
+      .login(this.verify.value.username, this.verify.value.code)
       .subscribe((data) => {
         // console.log(data);
         window.location.href = data.result.url;
         // this.router.navigate(["/home"]);
       },
       error => {
-        console.log("error: ",error.error.message);
-        this.signinFail = true;
-        this.errorMsg = error.error.message;
+        console.log("error: ",error.message,error);
       });
   }
 
   // Getter for easy access to form fields
   get f() {
-    return this.loginForm.controls;
+    return this.verify.controls;
   }
 }
