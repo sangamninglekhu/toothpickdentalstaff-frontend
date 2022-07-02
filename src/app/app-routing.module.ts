@@ -41,15 +41,6 @@ const routes: Routes = [
     component: CareerComponent,
 
   },
-  // {
-  //   path: 'career',
-  //   component: CareerComponent,
-  //   canActivate: [IsAuthenticatedGuard, HasRoleGuard],
-  //   data: {
-  //     role: 'Pirate'
-  //   }
-
-  // },
   {
     path: 'contact',
     component: ContactComponent
@@ -64,7 +55,7 @@ const routes: Routes = [
   },
   {
     path: 'signup',
-    component: SignupPracticeComponent
+    component: SignupComponent
   },
   {
     path: 'signuppractice',

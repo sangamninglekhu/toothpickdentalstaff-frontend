@@ -25,6 +25,7 @@ export class SignupPracticeComponent implements OnInit {
   staffs: Staff;
   staffs2: any[];
 
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
