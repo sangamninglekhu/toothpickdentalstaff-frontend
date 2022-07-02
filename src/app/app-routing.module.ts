@@ -24,13 +24,17 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent
   },
+  // {
+  //   path: 'about',
+  //   component: AboutComponent,
+  //   canActivate: [IsAuthenticatedGuard, HasRoleGuard],
+  //   data: {
+  //     role: 1
+  //   }
+  // },
   {
     path: 'about',
     component: AboutComponent,
-    canActivate: [IsAuthenticatedGuard, HasRoleGuard],
-    data: {
-      role: 1
-    }
   },
   {
     path: 'career',
