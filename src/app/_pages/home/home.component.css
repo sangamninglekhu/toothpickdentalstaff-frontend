@@ -45,6 +45,9 @@
   position: relative;
 } */
 
+.bg-tds{
+  background-color :#2C97B3;
+}
 .text-tds{
   color:#2C97B3;
 }

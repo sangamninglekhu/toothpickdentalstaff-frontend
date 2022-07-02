@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorProvider } from './_interceptors/auth.interceptor';
 import { LogoutComponent } from './_pages/logout/logout.component';
 import { VerifyemailComponent } from './_pages/verifyemail/verifyemail.component';
+import { TeamComponent } from './_pages/team/team.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { VerifyemailComponent } from './_pages/verifyemail/verifyemail.component
     SignupformPracticeComponent,
     CareerformComponent,
     LogoutComponent,
-    VerifyemailComponent
+    VerifyemailComponent,
+    TeamComponent
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,7 @@ import { IsAuthenticatedGuard } from './_guards/is-authenticated.guard';
 import { HasRoleGuard } from './_guards/has-role.guard';
 import { LogoutComponent } from './_pages/logout/logout.component';
 import { VerifyemailComponent } from './_pages/verifyemail/verifyemail.component';
+import { TeamComponent } from './_pages/team/team.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent,
+  },
+  {
+    path: 'team',
+    component: TeamComponent,
   },
   {
     path: 'career',
