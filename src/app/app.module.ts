@@ -29,6 +29,7 @@ import { AuthInterceptorProvider } from './_interceptors/auth.interceptor';
 import { LogoutComponent } from './_pages/logout/logout.component';
 import { VerifyemailComponent } from './_pages/verifyemail/verifyemail.component';
 import { TeamComponent } from './_pages/team/team.component';
+import { FaqComponent } from './_components/faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { TeamComponent } from './_pages/team/team.component';
     CareerformComponent,
     LogoutComponent,
     VerifyemailComponent,
-    TeamComponent
+    TeamComponent,
+    FaqComponent
   ],
   imports: [
     BrowserModule,
