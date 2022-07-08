@@ -35,7 +35,7 @@
 <div class=" pb-5 pb-md-15 bg-default-2 ">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-12 mb-9">
+      <div class="col-12 mb-9 mt-9">
         <div class="row">
           <div class="col-md-5 col-lg-4  mb-13">
             <div class="single-contact-widget d-flex">
@@ -44,8 +44,10 @@
               </div>
               <div class="widget-text">
                 <h3 class="gr-text-6 mb-5">Call us</h3>
-                <p class="gr-text-7 mb-0">+1-940-394-2948 <br>
-              +1-389-385-3807</p>
+                <!-- <p class="gr-text-7 mb-0"> -->
+                +44 07444831232
+                <!-- <br>+1-389-385-3807 -->
+                <!-- </p> -->
               </div>
             </div>
           </div>
@@ -56,10 +58,10 @@
               </div>
               <div class="widget-text">
                 <h3 class="gr-text-6 mb-5">Email us</h3>
-                <p class="gr-text-7 mb-0">
-                  support@grayic.com<br>
-              contact@grayic.com
-                </p>
+                <!-- <p class="gr-text-6 mb-0"> -->
+                For Booking enquiries:<br />booking@toothpickdentalstaff.com<br /><br />
+                For all other enquiries: <br />admin@toothpickdentalstaff.com
+                <!-- </p> -->
               </div>
             </div>
           </div>
@@ -70,10 +72,11 @@
               </div>
               <div class="widget-text">
                 <h3 class="gr-text-6 mb-5">Visit us</h3>
-                <p class="gr-text-7 mb-0">
-                  34 Madison Street,<br>
-              NY, USA 10005
-                </p>
+                <!-- <p class="gr-text-7 mb-0"> -->
+                The Blade, 4th Floor
+                <br />Suite 39, Abbey Square
+                <br />Reading RG1 3BE
+                <!-- </p> -->
               </div>
             </div>
           </div>
@@ -81,36 +84,56 @@
       </div>
       <div class="col-12">
         <div class="login-form bg-white border-gray-3 px-8 pt-8 pb-9 px-sm-11 py-sm-11 shadow-1 rounded-10">
-          <form action="./">
+          <form *ngIf="!contactSuccess" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group mb-7">
                   <label for="name" class="gr-text-11 font-weight-bold text-blackish-blue">Full Name</label>
-                  <input class="form-control gr-text-11 border" type="text" id="name" placeholder="i.e. John Doe">
+                  <input class="form-control gr-text-11 border" type="text" id="name" formControlName="full_name" placeholder="i.e. John Doe">
+                  <div *ngIf="submitted && c.full_name.errors" class=" mb-2 text-danger">
+                    <div *ngIf="c.full_name.errors.required">Full name is required</div>
+                  </div>
+
                 </div>
+
               </div>
               <div class="col-md-6">
                 <div class="form-group mb-7">
                   <label for="email" class="gr-text-11 font-weight-bold text-blackish-blue">Email</label>
-                  <input class="form-control gr-text-11 border" type="text" id="email" placeholder="i.e. john@mail.com">
+                  <input class="form-control gr-text-11 border" type="text" id="email" formControlName="email" placeholder="i.e. john@mail.com">
+                  <div *ngIf="submitted && c.email.errors" class=" mb-2 text-danger">
+                    <div *ngIf="c.email.errors.required">Email is required</div>
+                    <div *ngIf="c.email.errors.pattern">Email must be valid</div>
+                  </div>
+
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group mb-7">
                   <label for="phone" class="gr-text-11 font-weight-bold text-blackish-blue">Phone Number</label>
-                  <input class="form-control gr-text-11 border" type="text" id="phone" placeholder="i.e. +1-234-567-7890">
+                  <input class="form-control gr-text-11 border" type="text" id="phone" formControlName="phone" placeholder="i.e. +1-234-567-7890">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group mb-7">
                   <label for="subject" class="gr-text-11 font-weight-bold text-blackish-blue">Subject</label>
-                  <input class="form-control gr-text-11 border" type="text" id="subject" placeholder="i.e. I need a help">
+                  <input class="form-control gr-text-11 border" type="text" id="subject" formControlName="subject"
+                    placeholder="i.e. I need a help">
+                  <div *ngIf="submitted && c.subject.errors" class=" mb-2 text-danger">
+                    <div *ngIf="c.subject.errors.required">Subject is required</div>
+                  </div>
+
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="form-group mb-7">
                   <label for="message" class="gr-text-11 font-weight-bold text-blackish-blue">Message</label>
-                  <textarea name="textblock" id="message" class="form-control gr-text-11 border-gray-3 gr-textarea-height"></textarea>
+                  <textarea name="textblock" id="message" formControlName="contact_message"
+                    class="form-control gr-text-11 border-gray-3 gr-textarea-height"></textarea>
+                  <div *ngIf="submitted && c.contact_message.errors" class=" mb-2 text-danger">
+                    <div *ngIf="c.contact_message.errors.required">Message is required</div>
+                  </div>
+
                 </div>
               </div>
               <div class="col-xs-3">
