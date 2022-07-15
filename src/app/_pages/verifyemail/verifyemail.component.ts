@@ -69,7 +69,7 @@ export class VerifyemailComponent implements OnInit {
     console.log("form success");
 
     this.authService
-      .login(this.verify.value.username, this.verify.value.code)
+      .verify(this.verify.value.username, this.verify.value.code)
       .subscribe((data) => {
         // console.log(data);
         window.location.href = data.result.url;
