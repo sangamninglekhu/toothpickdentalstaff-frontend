@@ -36,16 +36,14 @@
               <p class="gr-text-8 mb-13">To get started, you need to sign in here.</p> -->
             </div>
             <div class="login-form bg-white border rounded-10 px-8 py-8 shadow-1 mb-11">
-              <form class="comment-one__form contact-form-validated"
-              [formGroup]="verify" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-                <div class="form-group">
-                  <label for="email" class="gr-text-11 font-weight-bold text-blackish-blue">Email</label>
-                  <input formControlName="username" class="form-control" type="text" placeholder="eg. john@mail.com">
-                  <div *ngIf="submitted && f.username.errors" class="mb-2 text-danger">
-                    <div *ngIf="f.username.errors.required">Username is required.</div>
-                  </div>
+              <div class="form-group  mb-7" *ngIf="success">
+                <label for="terms-check" class="gr-check-input mb-7 d-flex">
+                  <p class="gr-text-11 text-success mb-0">Your email is now verified. Go to <a href="signin" class="text-info">Login</a>.</p>
+                </label>
+              </div>
 
-                </div>
+              <form class="comment-one__form contact-form-validated"
+              [formGroup]="verify" (ngSubmit)="onSubmit()" enctype="multipart/form-data" *ngIf="!success">
                 <div class="form-group forget-block">
                   <div class="d-flex justify-content-between">
                     <label for="code" class="gr-text-11 font-weight-bold text-blackish-blue">Code</label>
@@ -57,8 +55,17 @@
                   </div>
 
                 </div>
+                <div class="form-group  mb-7" *ngIf="verifyFailed">
+                  <label for="terms-check" class="gr-check-input mb-7 d-flex">
+                    <p class="gr-text-11 text-danger mb-0">{{errorMsg}}</p>
+                  </label>
+                </div>
+
                 <div class="form-group button-block mb-2">
-                  <button class="form-btn btn btn-primary gr-hover-y w-100">Verify</button>
+                  <div class="spinner-grow text-info" role="status" *ngIf="loading">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <button *ngIf="!loading" class="form-btn btn btn-primary gr-hover-y w-100">Verify</button>
                 </div>
               </form>
             </div>

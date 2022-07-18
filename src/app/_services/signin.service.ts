@@ -29,20 +29,21 @@ export class SigninService {
   }
 
   logout(){
-    return this.http.get(`${baseUrl}logout`);
+    console.log("successfully logged out");
+    this.http.get(`${baseUrl}logout`);
   }
 
   verify(email: string, code: string): Observable<any>{
     const verifyData: FormData = new FormData();
     verifyData.append('email', email);
-    verifyData.append('code', code);
+    verifyData.append('token', code);
     console.log("verifydata ",verifyData);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'multipart/form-data'
       })
     };
-    return this.http.post(`${baseUrl}verifyMail`, verifyData,{withCredentials: true});
+    return this.http.post(`${baseUrl}verifyMail`, verifyData);
   }
 
   userDetail(token: string): Observable<any>{

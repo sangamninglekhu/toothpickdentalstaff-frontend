@@ -38,6 +38,12 @@
             <div class="login-form bg-white border rounded-10 px-8 py-8 shadow-1 mb-11">
               <form class="comment-one__form contact-form-validated"
               [formGroup]="loginForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+              <div class="form-group mb-7 text-center" *ngIf="showVerified" >
+                <label for="terms-check" class="gr-check-input mb-7 d-flex">
+                  <p class="gr-text-11 text-success mb-0">You have successfully verified your email. Please login to continue.</p>
+                </label>
+              </div>
+
                 <div class="form-group">
                   <label for="email" class="gr-text-11 font-weight-bold text-blackish-blue">Email</label>
                   <input formControlName="username" class="form-control" type="text" placeholder="i.e. john@mail.com">
@@ -49,7 +55,7 @@
                 <div class="form-group forget-block">
                   <div class="d-flex justify-content-between">
                     <label for="password" class="gr-text-11 font-weight-bold text-blackish-blue">Password</label>
-                    <a class="forget-link" href="resetpassword">Forgot Password?</a>
+                    <a class="forget-link text-info" href="resetpassword">Forgot Password?</a>
                   </div>
                   <input formControlName="password" id="password" class="form-control gr-text-11 border" type="password" placeholder="********">
                   <div *ngIf="submitted && f.password.errors" class="mb-2 text-danger">
@@ -63,9 +69,9 @@
                 Remember me
               </label>
             </div> -->
-                <div class="form-group  mb-7">
+                <div class="form-group mb-7">
                   <label for="terms-check" class="gr-check-input mb-7 d-flex">
-                    <input class="d-none" type="checkbox" id="terms-check">
+                    <input class="d-none " type="checkbox" id="terms-check">
                     <span class="checkbox mt-1 mr-2"></span>
                     <p class="gr-text-11 text-blackish-blue mb-0">Remember me</p>
                   </label>
@@ -75,13 +81,17 @@
                     <p class="gr-text-11 text-danger mb-0">{{errorMsg}}</p>
                   </label>
                 </div>
-                <div class="form-group button-block mb-2">
-                  <button class="form-btn btn btn-primary gr-hover-y w-100">Sign In</button>
+                <div class="form-group button-block mb-2 loading alc">
+                  <div class="spinner-grow text-info" role="status" *ngIf="loading">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <button *ngIf="!loading" class="form-btn btn btn-info gr-hover-y w-100 ">Sign In</button>
+
                 </div>
               </form>
             </div>
             <div class="form-bottom excerpt text-center">
-              <p class="sign-up-text gr-text-9 gr-text-color">Don’t have an account? <a href="signup" class="text-primary">Create an account</a></p>
+              <p class="sign-up-text gr-text-9 gr-text-color">Don’t have an account? <a href="signup" class="text-info">Create an account</a></p>
             </div>
           </div>
         </div>

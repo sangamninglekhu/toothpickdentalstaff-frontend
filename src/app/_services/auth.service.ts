@@ -3,7 +3,6 @@ import { BehaviorSubject } from "rxjs";
 import { tap } from "rxjs/operators";
 import { UserModel } from "../_models/user.model";
 import { SigninService } from "./signin.service";
-import { map, catchError } from "rxjs/operators";
 import { baseUrl } from "src/environments/environment";
 import { Router } from "@angular/router";
 
@@ -50,11 +49,7 @@ export class AuthService {
     console.log("form-data ", username, code);
     return this.signinService.verify(username, code).pipe(
       tap((response: any) => {
-        this._isLoggedIn.next(true);
-        localStorage.setItem(this.TOKEN_NAME, response.result.token);
-        this.userDetails(response.result.token).subscribe((data) => {
-          this.user = data;
-        });
+        console.log("I'm verifying ", response, this.user);
       })
     );
   }

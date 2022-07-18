@@ -22,6 +22,7 @@ export class SignupPracticeComponent implements OnInit {
   fileEmpty: boolean = true;
   checkbox: boolean = false;
   loading: boolean = false;
+  emailExists: boolean = false;
   staffs: Staff;
   staffs2: any[];
 
@@ -80,6 +81,7 @@ export class SignupPracticeComponent implements OnInit {
 
   // Function to run after form submission
   onSubmit() {
+    this.loading = true;
     console.log(this.signup.valid);
     console.log(this.signup.value);
 
@@ -91,20 +93,39 @@ export class SignupPracticeComponent implements OnInit {
       console.log(this.signup.value);
       console.log(this.signup);
       console.log("form failed");
+      this.loading = false;
       return;
     }
 
-    this.registerService.register(this.signup.value).subscribe(
+    this.registerService.checkEmail(this.signup.value.email).subscribe(
       (data) => {
-        console.log("success: ", data);
-        this.jobSuccess = true;
+        this.emailExists = false;
+        console.log("success1: ", data);
+        this.registerService.register(this.signup.value).subscribe(
+          (data) => {
+            console.log("success2: ", data);
+            this.jobSuccess = true;
+            localStorage.setItem("emailverify", this.signup.value.email);
+            // let navigationExtras: NavigationExtras = {
+            //   queryParams: {
+            //     "email": this.signup.value.email
+            //   }
+            // };
+            // this.router.navigate(["/verifyemail"]);
+          },
+          (error) => {
+            this.jobSuccess = false;
+            console.log("error2: ", error.message, error);
+          }
+        );
       },
       (error) => {
+        this.emailExists = true;
         this.jobSuccess = false;
-        console.log("error: ", error.message, error);
+        console.log("error1: ", error.message, error);
+        this.loading = false;
       }
-    );
-  }
+    );  }
 
   // Getter for easy access to form fields
   get f() {

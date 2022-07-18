@@ -5,6 +5,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Subscription } from "rxjs";
 import { UserModel } from "src/app/_models/user.model";
 import { AuthService } from "src/app/_services/auth.service";
 import { SigninService } from "src/app/_services/signin.service";
@@ -26,6 +27,11 @@ export class SigninComponent implements OnInit {
   submitted: boolean = false;
   fileEmpty: boolean = true;
   checkbox: boolean = false;
+  loading: boolean=false;
+  testsubs: Subscription;
+  isVerified: boolean = false;
+  showVerified: boolean = true;
+
 
   constructor(
     private fb: FormBuilder,
@@ -65,31 +71,46 @@ export class SigninComponent implements OnInit {
 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.testsubs = this.activatedRoute.queryParams.subscribe(params => {
+      this.isVerified = params["success"];
+      console.log("is verified: ", this.isVerified)
+    });
+    this.showVerified = (this.isVerified)? true : false;
+
+  }
 
   // Function to run after form submission
   onSubmit() {
+
+    this.loading = true;
     this.submitted = true;
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       console.log("form failed");
+      this.loading = false;
       return;
     }
     console.log("form success");
-
     this.authService
       .login(this.loginForm.value.username, this.loginForm.value.password)
       .subscribe((data) => {
+
         // console.log(data);
         window.location.href = data.result.url;
         // this.router.navigate(["/home"]);
+
       },
       error => {
         console.log("error: ",error.error.message);
         this.signinFail = true;
         this.errorMsg = error.error.message;
+        this.loading = false;
+
       });
+
+
   }
 
   // Getter for easy access to form fields

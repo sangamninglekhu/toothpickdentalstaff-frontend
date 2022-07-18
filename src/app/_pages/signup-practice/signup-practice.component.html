@@ -40,6 +40,10 @@
                     <div *ngIf="f.email.errors.required">Email is required.</div>
                     <div *ngIf="f.email.errors.pattern">Email must be valid.</div>
                   </div>
+                  <div *ngIf="emailExists" class="mb-2 text-danger">
+                    <div>An account with this email already.</div>
+                  </div>
+
                 </div>
               </div>
               <div class="col-md-6">
@@ -83,13 +87,16 @@
 
               <div class="col-xs-3">
                 <div class="form-group button-block mt-3 ">
-                  <button class="form-btn btn btn-primary w-100">Register</button>
+                  <div class="spinner-grow text-info" role="status" *ngIf="loading">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <button *ngIf="!loading" class="form-btn btn btn-info w-100">Register</button>
                 </div>
 
               </div>
               <div class="col-xs-3">
                 <div class="form-group button-block mt-3 ">
-                  <span (click)="clear()" class="form-btn btn btn-danger w-100">Reset Form</span>
+                  <span *ngIf="!loading" (click)="clear()" class="form-btn btn btn-danger w-100">Reset Form</span>
                 </div>
               </div>
 
