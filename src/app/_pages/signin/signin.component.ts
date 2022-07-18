@@ -1,9 +1,5 @@
 import { Component, ElementRef, OnInit } from "@angular/core";
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-} from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { UserModel } from "src/app/_models/user.model";
@@ -16,7 +12,6 @@ import { SigninService } from "src/app/_services/signin.service";
   styleUrls: ["./signin.component.css"],
 })
 export class SigninComponent implements OnInit {
-
   // Initializing required variables
   loginForm: FormGroup;
   defaultState;
@@ -27,11 +22,10 @@ export class SigninComponent implements OnInit {
   submitted: boolean = false;
   fileEmpty: boolean = true;
   checkbox: boolean = false;
-  loading: boolean=false;
+  loading: boolean = false;
   testsubs: Subscription;
   isVerified: boolean = false;
   showVerified: boolean = true;
-
 
   constructor(
     private fb: FormBuilder,
@@ -40,7 +34,6 @@ export class SigninComponent implements OnInit {
     public router: Router,
     private signinService: SigninService
   ) {
-
     // Get the last values of the form
     const value = JSON.parse(localStorage.getItem("jobFormValue"));
     this.loginForm = this.fb.group({
@@ -68,21 +61,29 @@ export class SigninComponent implements OnInit {
     //     console.log("signin error: ",error.message,error);
     //     return error;
     //   });
-
   }
 
   ngOnInit() {
-    this.testsubs = this.activatedRoute.queryParams.subscribe(params => {
+    this.testsubs = this.activatedRoute.queryParams.subscribe((params) => {
       this.isVerified = params["success"];
-      console.log("is verified: ", this.isVerified)
+      console.log("is verified: ", this.isVerified);
     });
-    this.showVerified = (this.isVerified)? true : false;
+    this.showVerified = this.isVerified ? true : false;
 
+    console.log("checking: ", this.authService.isLoggedIn);
+    // if (!this.authService.isLoggedIn){
+    //   this.router.navigate(["/home"]);
+    // }
+
+    this.authService.isLoggedIn.subscribe((data) => {
+      if (data) {
+        this.router.navigate(["/home"]);
+      }
+    });
   }
 
   // Function to run after form submission
   onSubmit() {
-
     this.loading = true;
     this.submitted = true;
 
@@ -95,22 +96,19 @@ export class SigninComponent implements OnInit {
     console.log("form success");
     this.authService
       .login(this.loginForm.value.username, this.loginForm.value.password)
-      .subscribe((data) => {
-
-        // console.log(data);
-        window.location.href = data.result.url;
-        // this.router.navigate(["/home"]);
-
-      },
-      error => {
-        console.log("error: ",error.error.message);
-        this.signinFail = true;
-        this.errorMsg = error.error.message;
-        this.loading = false;
-
-      });
-
-
+      .subscribe(
+        (data) => {
+          // console.log(data);
+          window.location.href = data.result.url;
+          // this.router.navigate(["/home"]);
+        },
+        (error) => {
+          console.log("error: ", error.error.message);
+          this.signinFail = true;
+          this.errorMsg = error.error.message;
+          this.loading = false;
+        }
+      );
   }
 
   // Getter for easy access to form fields
