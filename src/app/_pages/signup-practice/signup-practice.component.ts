@@ -101,21 +101,17 @@ export class SignupPracticeComponent implements OnInit {
       (data) => {
         this.emailExists = false;
         console.log("success1: ", data);
-        this.registerService.register(this.signup.value).subscribe(
+        this.registerService.registerPractice(this.signup.value).subscribe(
           (data) => {
             console.log("success2: ", data);
             this.jobSuccess = true;
             localStorage.setItem("emailverify", this.signup.value.email);
-            // let navigationExtras: NavigationExtras = {
-            //   queryParams: {
-            //     "email": this.signup.value.email
-            //   }
-            // };
-            // this.router.navigate(["/verifyemail"]);
           },
           (error) => {
             this.jobSuccess = false;
             console.log("error2: ", error.message, error);
+            this.loading = false;
+
           }
         );
       },

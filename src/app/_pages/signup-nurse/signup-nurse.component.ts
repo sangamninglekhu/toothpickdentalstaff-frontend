@@ -29,6 +29,7 @@ export class SignupNurseComponent implements OnInit {
   fileEmpty: boolean = true;
   checkbox: boolean = false;
   loading: boolean = false;
+  dataLoading: boolean = false;
   staffs: Staff;
   staffs2: any[];
   isLoaded: boolean = false;
@@ -112,6 +113,12 @@ export class SignupNurseComponent implements OnInit {
     this.fileEmpty = false;
     this.fileToUpload = files.item(0);
     this.signup.get("picture").setValue(this.fileToUpload);
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL = reader.result as string;
+    };
+    reader.readAsDataURL(this.fileToUpload);
+
   }
 
   onCheckboxChange(e) {
@@ -140,18 +147,17 @@ export class SignupNurseComponent implements OnInit {
 
   ngOnInit() {
     // this.staffs = this.registerService.getStaffs().subscribe;
+    this.dataLoading = true;
     this.registerService.getStaffs().subscribe(
       (data) => {
         this.staffs = data.result;
         this.isLoaded = true;
-        // this.signup.reset();
-        // this.signup.patchValue({
-        // });
-        // this.staffs2 = this.stafff;
-        console.log("success: ", this.staffs);
+        this.dataLoading = false;
+
       },
       (error) => {
         console.log("error: ", error.message, error);
+        this.isLoaded = false;
       }
     );
   }
@@ -159,15 +165,12 @@ export class SignupNurseComponent implements OnInit {
   // Function to run after form submission
   onSubmit() {
     this.loading = true;
-    console.log(this.signup.value);
-    console.log("staff ids: ", this.signup.value.staff_id);
-    console.log("picture: ", this.signup.value.picture);
-    // return;
 
     this.submitted = true;
     this.signup.value.role = 2;
+
     // stop here if form is invalid
-    if (this.signup.invalid && this.noStaff_id) {
+    if (this.signup.invalid || this.noStaff_id) {
       console.log("invaliddd:  ", this.signup.invalid);
       delete this.signup.value.confirmpassword;
       // delete this.signup.value.staff_id;
@@ -175,26 +178,19 @@ export class SignupNurseComponent implements OnInit {
       return;
     }
 
-    // return;
     delete this.signup.value.confirmpassword;
-    // delete this.signup.value.staff_id;
 
     console.log("check: ", this.signup.value);
     this.registerService.checkEmail(this.signup.value.email).subscribe(
       (data) => {
         this.emailExists = false;
         console.log("success1: ", data);
-        this.registerService.register(this.signup.value).subscribe(
+        this.registerService.register(this.signup.value, this.signup.value.staff_id, this.fileToUpload).subscribe(
           (data) => {
             console.log("success2: ", data);
             this.jobSuccess = true;
             localStorage.setItem("emailverify", this.signup.value.email);
-            // let navigationExtras: NavigationExtras = {
-            //   queryParams: {
-            //     "email": this.signup.value.email
-            //   }
-            // };
-            // this.router.navigate(["/verifyemail"]);
+            this.router.navigate(["/verifyemail"]);
           },
           (error) => {
             this.jobSuccess = false;

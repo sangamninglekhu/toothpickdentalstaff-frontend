@@ -18,7 +18,12 @@
     <div class="row justify-content-center">
       <div class="col-12">
         <div class="login-form bg-white border-gray-3 px-8 pt-8 pb-9 px-sm-11 py-sm-11 shadow-1 rounded-10">
-          <form [formGroup]="signup" (ngSubmit)="onSubmit()" *ngIf="isLoaded" enctype="multipart/form-data" >
+          <div class="text-center">
+            <div class="spinner-grow text-info" role="status" *ngIf="dataLoading">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <form [formGroup]="signup" (ngSubmit)="onSubmit()" *ngIf="isLoaded" enctype="multipart/form-data">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group mb-7">
@@ -83,7 +88,7 @@
 
                   <div class="hiddenCB">
                     <label class="gr-text-11 font-weight-bold text-blackish-blue">Register as:</label>
-<br/>
+                    <br />
                     <div *ngFor="let CountryData of staffs; let i=index" class="regAs col-md-12">
                       <input type="checkbox" name="choice" id="{{ 'wave' + i }}" [value]="CountryData.id"
                         (change)="onCheckboxChange($event)" /><label for="{{ 'wave' + i }}">{{CountryData.type}}</label>
@@ -94,7 +99,7 @@
                   </label> -->
                     </div>
                     <div *ngIf="submitted && noStaff_id" class="mb-2 text-danger">
-                      <br/>
+                      <br />
                       At least one is required
                     </div>
 
@@ -115,7 +120,14 @@
                   <label for="picture" class="gr-text-11 font-weight-bold text-blackish-blue">Profile Picture</label>
 
                   <!-- Select File -->
-                  <input class="form-control gr-text-11 border" type="file" accept="image/*" (change)="handleFileInput($event.target.files)" />
+                  <!-- <input class="form-control gr-text-11 border" type="file" name="picture" accept="image/*" (change)="handleFileInput($event.target.files)" /> -->
+                  <!-- <input class="form-control gr-text-11 border" type="file" name="picture" accept="image/*" (change)="showPreview(($event))" /> -->
+
+                  <div class="comment-form__input-box">
+                    <input type="file" name="picture" class="form-control gr-text-11 border" accept="image/*"
+                      (change)="handleFileInput($event.target.files)">
+                  </div>
+
                   <!-- Image Preview -->
                   <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
                     <img [src]="imageURL" [alt]="signup.value.full_name">
@@ -125,9 +137,9 @@
                     <div *ngIf="f.picture.errors.fileMaxSize">Please upload an image less than 5 Mb</div>
                   </div>
 
+                </div>
               </div>
-            </div>
-            <!-- <div class="col-md-6">
+              <!-- <div class="col-md-6">
                 <div class="form-group mb-7 hiddenCB">
                   <label for="staff_id" class="gr-text-11 font-weight-bold text-blackish-blue">Register as</label>
                   <select formControlName="staff_id" class="form-control gr-text-11 border" name="staff_id">
@@ -141,54 +153,54 @@
                   </div>
                 </div>
               </div> -->
-            <div class="col-md-6">
-              <div class="form-group mb-7">
-                <label for="phone" class="gr-text-11 font-weight-bold text-blackish-blue">Password</label>
-                <input formControlName="password" class="form-control gr-text-11 border" type="password"
-                  placeholder="i.e. sdfG@_gt">
-                <div *ngIf="submitted && f.password.errors" class="mb-2 text-danger">
-                  <div *ngIf="f.password.errors.required">Password is required</div>
-                  <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+              <div class="col-md-6">
+                <div class="form-group mb-7">
+                  <label for="phone" class="gr-text-11 font-weight-bold text-blackish-blue">Password</label>
+                  <input formControlName="password" class="form-control gr-text-11 border" type="password"
+                    placeholder="i.e. sdfG@_gt">
+                  <div *ngIf="submitted && f.password.errors" class="mb-2 text-danger">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group mb-7">
-                <label for="subject" class="gr-text-11 font-weight-bold text-blackish-blue">Confirm password</label>
-                <input formControlName="confirmpassword" class="form-control gr-text-11 border" type="password"
-                  placeholder="sdfG@_gt">
-                <div *ngIf="submitted && f.confirmpassword.errors" class="mb-2 text-danger">
-                  <div *ngIf="f.confirmpassword.errors.required">Password is required</div>
-                  <div *ngIf="f.confirmpassword.errors.mustMatch">Passwords must match</div>
+              <div class="col-md-6">
+                <div class="form-group mb-7">
+                  <label for="subject" class="gr-text-11 font-weight-bold text-blackish-blue">Confirm password</label>
+                  <input formControlName="confirmpassword" class="form-control gr-text-11 border" type="password"
+                    placeholder="sdfG@_gt">
+                  <div *ngIf="submitted && f.confirmpassword.errors" class="mb-2 text-danger">
+                    <div *ngIf="f.confirmpassword.errors.required">Password is required</div>
+                    <div *ngIf="f.confirmpassword.errors.mustMatch">Passwords must match</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <!-- <div class="col-md-6">
+              <!-- <div class="col-md-6">
                 <input formControlName="role" class="form-control gr-text-11 border" type="text"
                 placeholder="i.e. +44-07444831232" value="2" >
               </div> -->
 
-            <div class="col-xs-3">
-              <div class="form-group button-block mt-3 ">
-                <div class="spinner-grow text-info" role="status" *ngIf="loading">
-                  <span class="sr-only">Loading...</span>
+              <div class="col-xs-3">
+                <div class="form-group button-block mt-3 ">
+                  <div class="spinner-grow text-info" role="status" *ngIf="loading">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <button *ngIf="!loading" class="form-btn btn btn-info w-100">Register</button>
                 </div>
-                <button *ngIf="!loading" class="form-btn btn btn-info w-100">Register</button>
+
+              </div>
+              <div class="col-xs-3">
+                <div class="form-group button-block mt-3 ">
+                  <span *ngIf="!loading" (click)="clear()" class="form-btn btn btn-danger w-100">Reset Form</span>
+                </div>
               </div>
 
             </div>
-            <div class="col-xs-3">
-              <div class="form-group button-block mt-3 ">
-                <span *ngIf="!loading" (click)="clear()" class="form-btn btn btn-danger w-100">Reset Form</span>
-              </div>
-            </div>
-
+          </form>
         </div>
-        </form>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 <app-footer></app-footer>

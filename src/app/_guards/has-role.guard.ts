@@ -33,7 +33,6 @@ export class HasRoleGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log(this.authService.user);
 
      return this.authService
       .userDetails(localStorage.getItem("TDS_auth"))
@@ -49,13 +48,11 @@ export class HasRoleGuard implements CanActivate {
             }
             // data = data.role.includes(route.data.role);
             this.getUserDetails(data.role.includes(route.data.role));
-            console.log("im here plz: ", this.getUserDetails(data.role.includes(route.data.role)));
 
             return isAuthorized || false;
           },
 
           (error) => {
-            console.log("im here plz error: ", error.message, error);
             this.isLoaded = true;
             const isAuthorized = false;
 

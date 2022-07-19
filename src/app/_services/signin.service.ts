@@ -12,14 +12,12 @@ export class SigninService {
   constructor(
     private http: HttpClient
   ) {
-    console.log('this is the user: ',this.userDetail(localStorage.getItem("TDS_auth")));
   }
 
   login(email: string, password: string): Observable<any>{
     const loginData: FormData = new FormData();
     loginData.append('email', email);
     loginData.append('password', password);
-    console.log("logindata ",loginData);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'multipart/form-data'
@@ -29,7 +27,6 @@ export class SigninService {
   }
 
   logout(){
-    console.log("successfully logged out");
     this.http.get(`${baseUrl}logout`);
   }
 
@@ -37,7 +34,6 @@ export class SigninService {
     const verifyData: FormData = new FormData();
     verifyData.append('email', email);
     verifyData.append('token', code);
-    console.log("verifydata ",verifyData);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'multipart/form-data'
@@ -47,7 +43,6 @@ export class SigninService {
   }
 
   userDetail(token: string): Observable<any>{
-    console.log("userDetails ",token);
     const headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`

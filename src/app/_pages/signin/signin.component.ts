@@ -39,11 +39,11 @@ export class SigninComponent implements OnInit {
     this.loginForm = this.fb.group({
       username: [(value && value.username) || "", Validators.required],
       password: [(value && value.password) || "", Validators.required],
+      remember_token: [(value && value.remember_token) || ""],
     });
 
     // Get the last state of the contact form
     this.defaultState = this.loginForm.value;
-
     // Pre-fill the form with previous data. Handy on accidental page refresh or reloads.
     this.loginForm.valueChanges.subscribe((value) => {
       localStorage.setItem(
@@ -89,11 +89,18 @@ export class SigninComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
-      console.log("form failed");
       this.loading = false;
       return;
     }
     console.log("form success");
+
+    // remembere me if checked
+    if (this.loginForm.value.remember_token){
+      this.loginForm.value.remember_token = 1;
+    } else {
+      delete this.loginForm.value.remember_token;
+    }
+
     this.authService
       .login(this.loginForm.value.username, this.loginForm.value.password)
       .subscribe(

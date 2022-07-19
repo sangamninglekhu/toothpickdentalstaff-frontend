@@ -33,7 +33,6 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    console.log("form-data ", username, password);
     return this.signinService.login(username, password).pipe(
       tap((response: any) => {
         this._isLoggedIn.next(true);
@@ -46,7 +45,6 @@ export class AuthService {
   }
 
   verify(username: string, code: string) {
-    console.log("form-data ", username, code);
     return this.signinService.verify(username, code).pipe(
       tap((response: any) => {
         console.log("I'm verifying ", response, this.user);
@@ -60,7 +58,6 @@ export class AuthService {
         // this._isLoggedIn.next(true);
         // localStorage.setItem(this.USER_NAME, response.role);
         this.user = response;
-        console.log("jwt ", response, this.user);
       })
     );
   }
