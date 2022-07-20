@@ -70,7 +70,7 @@ export class SignupNurseComponent implements OnInit {
         staff_id: this.fb.array([]),
         picture: [
           null,
-          [Validators.required, FileValidator.fileMaxSize(500000)],
+          [Validators.required, FileValidator.fileMaxSize(5000000)],
         ],
         password: ["", [Validators.required, Validators.minLength(8)]],
         confirmpassword: ["", Validators.required],

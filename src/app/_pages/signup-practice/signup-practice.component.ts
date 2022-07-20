@@ -106,6 +106,8 @@ export class SignupPracticeComponent implements OnInit {
             console.log("success2: ", data);
             this.jobSuccess = true;
             localStorage.setItem("emailverify", this.signup.value.email);
+            this.router.navigate(["/verifyemail"]);
+
           },
           (error) => {
             this.jobSuccess = false;
