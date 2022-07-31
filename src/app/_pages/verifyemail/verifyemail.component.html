@@ -12,9 +12,9 @@
   </div>
 </div>
 
-  <div class="sign-in">
-    <!-- Header Brand Area -->
-    <!-- <header class="site-header bg-white">
+<div class="sign-in">
+  <!-- Header Brand Area -->
+  <!-- <header class="site-header bg-white">
       <div class="container-fluid">
         <div class="row justify-content-center">
           <div class="col-md-8 col-lg-5 col-xl-4">
@@ -27,55 +27,79 @@
         </div>
       </div>
     </header> -->
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-7 col-lg-5 col-xl-4">
-          <div class="main-block ">
-            <div class="form-title text-center">
-              <!-- <h2 class="title gr-text-2 mb-9">Login</h2>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-7 col-lg-5 col-xl-4">
+        <div class="main-block ">
+          <div class="form-title text-center">
+            <!-- <h2 class="title gr-text-2 mb-9">Login</h2>
               <p class="gr-text-8 mb-13">To get started, you need to sign in here.</p> -->
+          </div>
+          <div class="login-form bg-white border rounded-10 px-8 py-8 shadow-1 mb-11">
+            <div class="form-group  mb-7" *ngIf="success">
+              <label for="terms-check" class="gr-check-input mb-7 d-flex">
+                <p class="gr-text-11 text-success mb-0">Your email is now verified. Go to <a href="signin"
+                    class="text-info">Login</a>.</p>
+              </label>
             </div>
-            <div class="login-form bg-white border rounded-10 px-8 py-8 shadow-1 mb-11">
-              <div class="form-group  mb-7" *ngIf="success">
+
+            <form class="comment-one__form contact-form-validated" [formGroup]="verify" (ngSubmit)="onSubmit()"
+              enctype="multipart/form-data" *ngIf="!success">
+              <div class="form-group forget-block">
+                <div class="d-flex justify-content-between">
+                  <label for="code" class="gr-text-11 font-weight-bold text-blackish-blue">Code</label>
+                  <!-- <a class="forget-link" href="resetcode">Send Code Again</a> -->
+                </div>
+                <input formControlName="code" id="code" class="form-control gr-text-11 border" type="code"
+                  placeholder="********">
+                <div *ngIf="submitted && f.code.errors" class="mb-2 text-danger">
+                  <div *ngIf="f.code.errors.required">Code is required.</div>
+                </div>
+
+              </div>
+
+              <div class="form-group  mb-7" *ngIf="!verifyFailed">
                 <label for="terms-check" class="gr-check-input mb-7 d-flex">
-                  <p class="gr-text-11 text-success mb-0">Your email is now verified. Go to <a href="signin" class="text-info">Login</a>.</p>
+                  <p class="gr-text-11 text-danger mb-0">{{errorMsg}}</p>
                 </label>
               </div>
 
-              <form class="comment-one__form contact-form-validated"
-              [formGroup]="verify" (ngSubmit)="onSubmit()" enctype="multipart/form-data" *ngIf="!success">
-                <div class="form-group forget-block">
-                  <div class="d-flex justify-content-between">
-                    <label for="code" class="gr-text-11 font-weight-bold text-blackish-blue">Code</label>
-                    <!-- <a class="forget-link" href="resetcode">Send Code Again</a> -->
-                  </div>
-                  <input formControlName="code" id="code" class="form-control gr-text-11 border" type="code" placeholder="********">
-                  <div *ngIf="submitted && f.code.errors" class="mb-2 text-danger">
-                    <div *ngIf="f.code.errors.required">Code is required.</div>
-                  </div>
 
+              <div class="form-group button-block mb-2">
+                <div class="spinner-grow text-info" role="status" *ngIf="loading">
+                  <span class="sr-only">Loading...</span>
                 </div>
-                <div class="form-group  mb-7" *ngIf="verifyFailed">
-                  <label for="terms-check" class="gr-check-input mb-7 d-flex">
-                    <p class="gr-text-11 text-danger mb-0">{{errorMsg}}</p>
-                  </label>
-                </div>
+                <button *ngIf="!loading" class="form-btn btn btn-info gr-hover-y w-100">Verify</button>
+              </div>
 
-                <div class="form-group button-block mb-2">
-                  <div class="spinner-grow text-info" role="status" *ngIf="loading">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                  <button *ngIf="!loading" class="form-btn btn btn-info gr-hover-y w-100">Verify</button>
-                </div>
-              </form>
-            </div>
-            <div class="form-bottom excerpt text-center">
-              <p class="sign-up-text gr-text-9 gr-text-color">Don’t have an account? <a href="signup" class="text-primary">Create an account</a></p>
-            </div>
+              <div class="form-group text-center-align" *ngIf="!codeSent">
+                <label for="terms-check" class="gr-check-input mb-7 text-center w-100">
+                  <p class="gr-text-11 mb-0 ">Didn't receive a code or code expired?<br />
+                    <input #send id="sending" type="button" (click)="resendCode()" class="sendBtn btn-info gr-text-12" value="Re-send Code" />
+                  </p>
+                </label>
+              </div>
+              <div class="form-group text mb-7" *ngIf="!codeSent">
+                <label for="terms-check" class="gr-check-input text-center mb-7">
+                  <p class="gr-text-11 text-danger mb-0">{{errorMsg2}}</p>
+                </label>
+              </div>
+
+
+              <div id="disablecountdown" class="text-center" *ngIf="showCountdown">
+                <span class="will-close">You can re-send another code in <strong>n</strong> seconds.</span>
+              </div>
+
+            </form>
+          </div>
+          <div class="form-bottom excerpt text-center">
+            <p class="sign-up-text gr-text-9 gr-text-color">Don’t have an account? <a href="signup"
+                class="text-info">Create an account</a></p>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <app-footer></app-footer>
+<app-footer></app-footer>

@@ -13,6 +13,7 @@ export class AuthService {
   private _isLoggedIn = new BehaviorSubject<boolean>(false);
   private readonly TOKEN_NAME = "TDS_auth";
   private readonly USER_NAME = "TDS_role";
+  private readonly USER_EMAIL = "TDS_user";
   isLoggedIn = this._isLoggedIn.asObservable();
   user!: UserModel;
   role!: number;
@@ -37,7 +38,24 @@ export class AuthService {
       tap((response: any) => {
         this._isLoggedIn.next(true);
         localStorage.setItem(this.TOKEN_NAME, response.result.token);
+        localStorage.setItem(this.USER_EMAIL, username);
         this.userDetails(response.result.token).subscribe((data) => {
+          this.user = data;
+        });
+      })
+    );
+  }
+
+  me() {
+    return this.signinService.findRole(localStorage.getItem(this.TOKEN_NAME)).pipe(
+      tap((response: any) => {
+        console.log('hello world: ',response.result);
+        // this._isLoggedIn.next(true);
+        // localStorage.setItem(this.TOKEN_NAME, response.result.token);
+        // localStorage.setItem(this.USER_EMAIL, username);
+        this.userDetails(response.result).subscribe((data) => {
+          console.log('hello world: ',data, response.result);
+
           this.user = data;
         });
       })
@@ -63,10 +81,18 @@ export class AuthService {
   }
 
   signOut() {
+    const a = localStorage.getItem(this.TOKEN_NAME);
     localStorage.removeItem(this.TOKEN_NAME);
     localStorage.removeItem(this.USER_NAME);
     console.log("signed out");
+    console.log('this is my token :',a);
+
     this._isLoggedIn.next(false);
-    this.signinService.logout();
+    // this.signinService.logout();
+    return this.signinService.logout(a).pipe(
+      tap((response: any) => {
+        console.log("I'm verifying ", response, this.user);
+      })
+    );
   }
 }

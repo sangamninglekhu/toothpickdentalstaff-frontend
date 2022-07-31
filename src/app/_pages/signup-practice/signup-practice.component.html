@@ -56,8 +56,39 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
+                <div class="form-group mb-7">
+
+                  <!-- <label for="phone" class="gr-text-11 font-weight-bold text-blackish-blue">Password</label>
+                  <input formControlName="password" class="form-control gr-text-11 border" type="password"
+                    placeholder="i.e. sdfG@_gt">
+                  <div *ngIf="submitted && f.password.errors" class="mb-2 text-danger">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                  </div> -->
+                  <label for="picture" class="gr-text-11 font-weight-bold text-blackish-blue">Profile Picture</label>
+
+                  <!-- Select File -->
+                  <!-- <input class="form-control gr-text-11 border" type="file" name="picture" accept="image/*" (change)="handleFileInput($event.target.files)" /> -->
+                  <!-- <input class="form-control gr-text-11 border" type="file" name="picture" accept="image/*" (change)="showPreview(($event))" /> -->
+
+                  <div class="comment-form__input-box">
+                    <input type="file" name="picture" class="form-control gr-text-11 border" accept="image/*"
+                      (change)="handleFileInput($event.target.files)">
+                  </div>
+
+                  <!-- Image Preview -->
+                  <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+                    <img [src]="imageURL" [alt]="signup.value.full_name">
+                  </div>
+                  <div *ngIf="submitted && f.picture.errors" class="mb-2 text-danger">
+                    <div *ngIf="f.picture.errors.required">Picture is required</div>
+                    <div *ngIf="f.picture.errors.fileMaxSize">Please upload an image less than 5 Mb</div>
+                  </div>
+
+                </div>
               </div>
+
               <div class="col-md-6">
                 <div class="form-group mb-7">
                   <label for="phone" class="gr-text-11 font-weight-bold text-blackish-blue">Password</label>

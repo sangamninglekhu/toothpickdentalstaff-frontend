@@ -26,8 +26,26 @@ export class SigninService {
     return this.http.post(`${baseUrl}userLogin`, loginData,{withCredentials: true});
   }
 
-  logout(){
-    this.http.get(`${baseUrl}logout`);
+  logout(token: string): Observable<any>{
+    // const headers = new Headers({
+    //   'Content-Type': 'application/json',
+    //   'Authorization': `Bearer ${token}`
+    // });
+
+    const headerDict = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    }
+
+    const requestOptions = {
+      headers: new Headers(headerDict),
+    };
+
+    const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${token}`);
+
+    return this.http.get(`${baseUrl}logout`, {headers});
   }
 
   verify(email: string, code: string): Observable<any>{
@@ -48,6 +66,26 @@ export class SigninService {
       'Authorization': `Bearer ${token}`
     });
     return this.http.post(`${baseUrl}userDetails`, {headers: headers});
+  }
+
+  findRole(token: string): Observable<any>{
+    // const headers = new Headers({
+    //   'Content-Type': 'application/json',
+    //   'Authorization': `Bearer ${token}`
+    // });
+
+    const headerDict = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    }
+
+    const requestOptions = {
+      headers: new Headers(headerDict),
+    };
+    const headers = new HttpHeaders()
+            .set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${baseUrl}me`, {headers});
   }
 
 }

@@ -5,6 +5,7 @@ import { AuthService } from "src/app/_services/auth.service";
 import { RegisterService } from "src/app/_services";
 import { MustMatch } from 'src/app/_helpers/must-match.validator';
 import { Staff } from "src/app/_models/staff";
+import { FileValidator } from "src/app/_helpers/file.validator";
 
 @Component({
   selector: 'app-signup-practice',
@@ -25,7 +26,7 @@ export class SignupPracticeComponent implements OnInit {
   emailExists: boolean = false;
   staffs: Staff;
   staffs2: any[];
-
+  imageURL: string;
 
   constructor(
     private fb: FormBuilder,
@@ -54,6 +55,10 @@ export class SignupPracticeComponent implements OnInit {
           Validators.maxLength(100),
         ],
       ],
+      picture: [
+        null,
+        [Validators.required, FileValidator.fileMaxSize(5000000)],
+      ],
       // staff_id: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmpassword: ['', Validators.required],
@@ -79,6 +84,20 @@ export class SignupPracticeComponent implements OnInit {
   ngOnInit() {
   }
 
+    // Handling files for CV form field
+    handleFileInput(files: FileList) {
+      this.fileEmpty = false;
+      this.fileToUpload = files.item(0);
+      this.signup.get("picture").setValue(this.fileToUpload);
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageURL = reader.result as string;
+      };
+      reader.readAsDataURL(this.fileToUpload);
+
+    }
+
+
   // Function to run after form submission
   onSubmit() {
     this.loading = true;
@@ -101,19 +120,17 @@ export class SignupPracticeComponent implements OnInit {
       (data) => {
         this.emailExists = false;
         console.log("success1: ", data);
-        this.registerService.registerPractice(this.signup.value).subscribe(
+        this.registerService.registerPractice(this.signup.value, this.fileToUpload).subscribe(
           (data) => {
             console.log("success2: ", data);
             this.jobSuccess = true;
             localStorage.setItem("emailverify", this.signup.value.email);
             this.router.navigate(["/verifyemail"]);
-
           },
           (error) => {
             this.jobSuccess = false;
             console.log("error2: ", error.message, error);
             this.loading = false;
-
           }
         );
       },

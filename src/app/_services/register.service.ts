@@ -29,8 +29,15 @@ export class RegisterService {
 
     return this.http.post(`${baseUrl}registerUser`, formData);
   }
-  registerPractice(signupform) {
-    return this.http.post(`${baseUrl}registerUser`, signupform);
+  registerPractice(signupform, fileToUpload: File) {
+    const formData: FormData = new FormData();
+    formData.append("full_name", signupform["full_name"]);
+    formData.append("contact", signupform["contact"]);
+    formData.append("email", signupform["email"]);
+    formData.append("picture", fileToUpload, fileToUpload.name);
+    formData.append("password", signupform["password"]);
+
+    return this.http.post(`${baseUrl}registerUser`, formData);
   }
 
   getStaffs(): Observable<any> {
@@ -42,4 +49,12 @@ export class RegisterService {
     _email.append("email", email);
     return this.http.post(`${baseUrl}checkMail`, _email);
   }
+
+  sendVerificationCode(email: string) {
+    const _email: FormData = new FormData();
+    _email.append("email", email);
+    return this.http.post(`${baseUrl}sendVerifyEmail`, _email);
+  }
+
+
 }

@@ -137,7 +137,6 @@ export class SignupNurseComponent implements OnInit {
           if (staff_id.length == 0) {
             this.noStaff_id = true;
           }
-
           return;
         }
         i++;

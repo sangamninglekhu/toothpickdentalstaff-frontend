@@ -76,9 +76,10 @@
                     <p class="gr-text-11 text-blackish-blue mb-0">Remember me</p>
                   </label>
                 </div>
-                <div class="form-group  mb-7" *ngIf="signinFail">
+                <div class="form-group mb-7" *ngIf="signinFail">
                   <label for="terms-check" class="gr-check-input mb-7 d-flex">
                     <p class="gr-text-11 text-danger mb-0">{{errorMsg}}</p>
+                    <p class="gr-text-11 mb-0" *ngIf="showVerifyLink">&nbsp;&nbsp;<a href="verifyemail" class="text-info "> <u>Verify Now</u></a></p>
                   </label>
                 </div>
                 <div class="form-group button-block mb-2 loading alc">

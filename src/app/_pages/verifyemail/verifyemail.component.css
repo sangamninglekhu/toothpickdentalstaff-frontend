@@ -1,0 +1,21 @@
+.text-center-align{
+  align-items: center;
+  text-align: ;
+}
+
+.sendBtn{
+  padding: 8px 20px;
+  border: 0px;
+  border-radius: 8px;
+}
+
+
+input[type=button]:disabled,
+button:disabled {
+    background-color: grey;
+}
+
+input[type=button]:disabled,
+button:disabled{
+  background-color: none;
+}

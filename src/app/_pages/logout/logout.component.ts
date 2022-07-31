@@ -16,10 +16,10 @@ export class LogoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.signOut();
+    this.authService.signOut().subscribe((data) => {
+      console.log('loggin u out :',data);
+      // this.router.navigate(["/signin"]);
+    });
     // window.location.href='https://test.toothpickdentalstaff.com/signin';
-    this.router.navigate(["/signin"]);
-
   }
-
 }

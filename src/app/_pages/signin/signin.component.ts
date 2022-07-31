@@ -26,6 +26,7 @@ export class SigninComponent implements OnInit {
   testsubs: Subscription;
   isVerified: boolean = false;
   showVerified: boolean = true;
+  showVerifyLink: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -113,7 +114,13 @@ export class SigninComponent implements OnInit {
           console.log("error: ", error.error.message);
           this.signinFail = true;
           this.errorMsg = error.error.message;
+          if (this.errorMsg === "Email Not Verified!"){
+            localStorage.setItem("emailverify", this.loginForm.value.username);
+            console.log("i'm in: ",localStorage.getItem("emailverify"));
+            this.showVerifyLink = true;
+          }
           this.loading = false;
+
         }
       );
   }

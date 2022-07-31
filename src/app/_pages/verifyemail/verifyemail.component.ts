@@ -3,9 +3,10 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, NavigationExtras, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { UserModel } from "src/app/_models/user.model";
+import { RegisterService } from "src/app/_services";
 import { AuthService } from "src/app/_services/auth.service";
 import { SigninService } from "src/app/_services/signin.service";
-
+declare var mySend;
 @Component({
   selector: "app-verifyemail",
   templateUrl: "./verifyemail.component.html",
@@ -18,19 +19,25 @@ export class VerifyemailComponent implements OnInit {
   success: boolean = false;
   verifyFailed: boolean = false;
   errorMsg: string;
+  errorMsg2: string;
   fileToUpload: File | null = null;
   vacancyId: string;
   submitted: boolean = false;
   fileEmpty: boolean = true;
   checkbox: boolean = false;
   loading: boolean=false;
+  codeSent: boolean=false;
+  showCountdown: boolean=false;
   verifyEmail: string;
   testsubs: Subscription;
+  myId: string;
+
 
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private registerService: RegisterService,
     public activatedRoute: ActivatedRoute,
     public router: Router,
     private signinService: SigninService
@@ -56,6 +63,10 @@ export class VerifyemailComponent implements OnInit {
       this.verifyEmail = params["email"];
     });
 
+    var s = document.createElement("script");
+    s.src = "../../assets/js/disableTimer.js";
+
+
   }
 
   // Function to run after form submission
@@ -63,11 +74,17 @@ export class VerifyemailComponent implements OnInit {
     this.loading = true;
     this.submitted = true;
 
+    // if (localStorage.getItem('emailverify')){
+    //   this.errorMsg = "The system cannot identify you email address. Please login once again."
+    //   this.loading = false;
+    //   return;
+
+    // }
+
     // stop here if form is invalid
     if (this.verify.invalid) {
       console.log("form failed");
       this.loading = false;
-
       return;
     }
     console.log("form success");
@@ -98,6 +115,59 @@ export class VerifyemailComponent implements OnInit {
         }
       );
   }
+
+  resendCode(){
+    console.log('resending ',localStorage.getItem('emailverify'));
+
+
+    if (localStorage.getItem('emailverify') == null){
+      console.log('resending2 ',localStorage.getItem('emailverify'));
+
+      this.errorMsg2 = "The system cannot identify your email address. Please login once again."
+      this.loading = false;
+      return;
+
+    }
+    this.showCountdown = true;
+
+
+    this.registerService
+    .sendVerificationCode(localStorage.getItem('emailverify'))
+    .subscribe(
+      (data) => {
+
+        this.myId ="send";
+        mySend();
+
+        // this.verifyFailed = false;
+        // console.log('successful verification');
+        // let navigationExtras: NavigationExtras = {
+        //   queryParams: {
+        //     "success": true
+        //   }
+        // };
+        // this.router.navigate(["/signin"], navigationExtras);
+
+        // window.location.href = data.result.url;
+        // this.router.navigate(["/home"]);
+      },
+      (error) => {
+        this.myId ="send";
+        let element: HTMLElement = document.getElementById("send") as HTMLElement;
+        // element.click();
+        console.log("id: ", element);
+        console.log("error: ", error.message, error);
+        this.showCountdown = true;
+
+        this.errorMsg2 = error.error.message;
+        this.success = false;
+        this.verifyFailed = true;
+        this.loading = false;
+
+      }
+    );
+}
+
 
   // Getter for easy access to form fields
   get f() {
