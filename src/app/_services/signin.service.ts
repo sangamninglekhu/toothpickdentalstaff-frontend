@@ -45,7 +45,13 @@ export class SigninService {
     const headers = new HttpHeaders()
     .set('Authorization', `Bearer ${token}`);
 
-    return this.http.get(`${baseUrl}logout`, {headers});
+
+  //   var reqHeader = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('mpManagerToken'))
+  //  });
+
+    return this.http.get(`${baseUrl}logout`, {headers, responseType: 'text'});
   }
 
   verify(email: string, code: string): Observable<any>{

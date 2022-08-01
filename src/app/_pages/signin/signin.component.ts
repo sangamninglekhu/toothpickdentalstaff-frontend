@@ -65,16 +65,12 @@ export class SigninComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.testsubs = this.activatedRoute.queryParams.subscribe((params) => {
       this.isVerified = params["success"];
-      console.log("is verified: ", this.isVerified);
     });
     this.showVerified = this.isVerified ? true : false;
 
-    console.log("checking: ", this.authService.isLoggedIn);
-    // if (!this.authService.isLoggedIn){
-    //   this.router.navigate(["/home"]);
-    // }
 
     this.authService.isLoggedIn.subscribe((data) => {
       if (data) {

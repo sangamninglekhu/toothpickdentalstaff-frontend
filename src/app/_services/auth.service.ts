@@ -89,10 +89,12 @@ export class AuthService {
 
     this._isLoggedIn.next(false);
     // this.signinService.logout();
-    return this.signinService.logout(a).pipe(
+    return this.signinService.logout(a)
+    .pipe(
       tap((response: any) => {
-        console.log("I'm verifying ", response, this.user);
+        console.log("I'm verifying ", a,response, this.user);
       })
-    );
+    )
+    ;
   }
 }
